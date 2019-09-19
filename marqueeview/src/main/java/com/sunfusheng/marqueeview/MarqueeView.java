@@ -2,7 +2,6 @@ package com.sunfusheng.marqueeview;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.support.annotation.AnimRes;
@@ -10,7 +9,6 @@ import android.support.annotation.FontRes;
 import android.support.v4.content.res.ResourcesCompat;
 import android.text.TextUtils;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewTreeObserver;
@@ -265,6 +263,13 @@ public class MarqueeView<T> extends ViewFlipper {
         }
     }
 
+
+    private TextUtils.TruncateAt ellipsize = TextUtils.TruncateAt.END;
+
+    public void setEllipsize(TextUtils.TruncateAt ellipsize) {
+        this.ellipsize = ellipsize;
+    }
+
     private TextView createTextView(T marqueeItem) {
         TextView textView = (TextView) getChildAt((getDisplayedChild() + 1) % 3);
         if (textView == null) {
@@ -276,7 +281,7 @@ public class MarqueeView<T> extends ViewFlipper {
             textView.setSingleLine(singleLine);
             if (singleLine) {
                 textView.setMaxLines(1);
-                textView.setEllipsize(TextUtils.TruncateAt.END);
+                textView.setEllipsize(ellipsize);
             }
             if (typeface != null) {
                 textView.setTypeface(typeface);
